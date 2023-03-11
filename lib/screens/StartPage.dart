@@ -10,25 +10,22 @@ class StartPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xffF3F7FF),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Image.asset(
+            'assets/images/img.png',
+            height: 280,
+          ),
           const SizedBox(
-            height: 100,
+            height: 39,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 26,right: 26, top: 87),
-            child: Image.asset(
-                'assets/images/img.png',
-              height: 280,
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(left: 23, right: 23),
+          const Center(
             child: Text(
-                'mboathoscope',
-                 style: TextStyle(
-                 color: Color(0xff3D79FD),
-                 fontWeight: FontWeight.bold,
-                 fontSize: 50,
+              'mboathoscope',
+              style: TextStyle(
+                color: Color(0xff3D79FD),
+                fontWeight: FontWeight.bold,
+                fontSize: 50,
               ),
             ),
           ),
@@ -36,16 +33,13 @@ class StartPage extends StatelessWidget {
             height: 39,
           ),
           GestureDetector(
-            onTap: (){
-              Navigator.pushNamed(context,'/rolepage');
+            onTap: () {
+              Navigator.pushNamed(context, '/rolepage');
             },
-            child: const Padding(
-              padding: EdgeInsets.only(bottom: 199),
-              child: CustomButton(
-                txt: 'Get Started',
-              ),
+            child: const CustomButton(
+              txt: 'Get Started',
             ),
-          )
+          ),
         ],
       ),
     );
