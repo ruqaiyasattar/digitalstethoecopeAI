@@ -7,9 +7,7 @@ void main() {
   runApp(
     MaterialApp(
       // title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const StartPage(),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
@@ -21,4 +19,3 @@ void main() {
     ),
   );
 }
-
