@@ -11,11 +11,15 @@ class StartPage extends StatelessWidget {
       backgroundColor: const Color(0xffF3F7FF),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 26, right: 26, top: 87),
-            child: Image.asset(
-              'assets/images/img.png',
-              height: 280,
+          Flexible(
+            flex: 3,
+            fit: FlexFit.loose,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 26, right: 26, top: 87),
+              child: Image.asset(
+                'assets/images/img.png',
+                height: 300,
+              ),
             ),
           ),
           const Padding(
@@ -30,7 +34,7 @@ class StartPage extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 35,
+            height: 50,
           ),
           GestureDetector(
             onTap: () {
