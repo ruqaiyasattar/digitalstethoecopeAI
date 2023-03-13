@@ -6,9 +6,7 @@ void main() {
   runApp(
     MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const HomePage(),
     ),
   );
@@ -29,21 +27,23 @@ class _HomePageState extends State<HomePage> {
       _selectedIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF3F7FF),
-      body: Column(
-        children: const [
-          headerHalf(),
-          RecordingList()
-        ],
+
+      // SigleChildScrollView helps in preventing screen overflow.
+      body: SingleChildScrollView(
+        child: Column(
+          children: const [headerHalf(), RecordingList()],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         //backgroundColor: const Color(0xffF3F7FF),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            backgroundColor:  Color(0xffF3F7FF),
+            backgroundColor: Colors.white,
             icon: ImageIcon(
               AssetImage("assets/images/img_profile.png"),
             ),
@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
             label: '',
           )
         ],
-        selectedItemColor:  const Color(0xff3D79FD),
+        selectedItemColor: const Color(0xff3D79FD),
         unselectedItemColor: Colors.black,
         onTap: _onItemTapped,
       ),
