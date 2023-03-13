@@ -33,11 +33,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF3F7FF),
-      body: Column(
-        children: const [
-          headerHalf(),
-          RecordingList()
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: const [
+            headerHalf(),
+            RecordingList()
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         //backgroundColor: const Color(0xffF3F7FF),
