@@ -11,33 +11,34 @@ class StartPage extends StatelessWidget {
       backgroundColor: const Color(0xffF3F7FF),
       body: Column(
         children: [
-          const SizedBox(
-            height: 100,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 26,right: 26, top: 87),
-            child: Image.asset(
+          Flexible(
+            flex: 3,
+            fit: FlexFit.loose,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 26, right: 26, top: 87),
+              child: Image.asset(
                 'assets/images/img.png',
-              height: 280,
+                height: 300,
+              ),
             ),
           ),
           const Padding(
             padding: EdgeInsets.only(left: 23, right: 23),
             child: Text(
-                'mboathoscope',
-                 style: TextStyle(
-                 color: Color(0xff3D79FD),
-                 fontWeight: FontWeight.bold,
-                 fontSize: 50,
+              'mboathoscope',
+              style: TextStyle(
+                color: Color(0xff3D79FD),
+                fontWeight: FontWeight.bold,
+                fontSize: 45,
               ),
             ),
           ),
           const SizedBox(
-            height: 39,
+            height: 50,
           ),
           GestureDetector(
-            onTap: (){
-              Navigator.pushNamed(context,'/rolepage');
+            onTap: () {
+              Navigator.pushNamed(context, '/rolepage');
             },
             child: const Padding(
               padding: EdgeInsets.only(bottom: 199),
