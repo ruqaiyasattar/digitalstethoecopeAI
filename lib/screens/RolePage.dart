@@ -12,10 +12,10 @@ class RolePage extends StatelessWidget {
       body: Column(
         children: [
           const SizedBox(
-            height: 100,
+            height: 50,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 26,right: 26, top: 87),
+            padding: const EdgeInsets.only(left: 26, right: 26, top: 87),
             child: Image.asset(
               'assets/images/img_role.png',
               height: 280,
@@ -34,15 +34,15 @@ class RolePage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 55, right: 38, left: 38),
-            child: Row(
+            child: Column(
               children: const [
-                 CustomButton(
+                CustomButton(
                   txt: 'Transmitter',
                 ),
-                 SizedBox(
-                  width: 60,
+                SizedBox(
+                  height: 30,
                 ),
-                 CustomButton(
+                CustomButton(
                   txt: 'Receiver',
                 )
               ],
@@ -52,22 +52,27 @@ class RolePage extends StatelessWidget {
             height: 20,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 300, top: 30),
+            padding: const EdgeInsets.only(left: 250, top: 25, right: 25),
             child: GestureDetector(
-              onTap: (){
-                Navigator.pushNamed(context,'/homepage');
+              onTap: () {
+                Navigator.pushNamed(context, '/homepage');
               },
-              child: RichText(
-                text: const TextSpan(
-                  children: [
-                    TextSpan(
-                      text: "Next ",
-                      style: TextStyle(color: Colors.black)
-                    ),
-                    WidgetSpan(
-                      child: Icon(Icons.arrow_forward_ios, size: 14),
-                    ),
-                  ],
+              child: Center(
+                child: RichText(
+                  text: const TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "Next ",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      WidgetSpan(
+                        child: Icon(Icons.arrow_circle_right, size: 16),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
