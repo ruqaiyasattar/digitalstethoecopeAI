@@ -43,6 +43,7 @@ dependencies:
   intl: ^0.17.0
   toast: ^0.3.0
   flutter_riverpod: ^2.3.2
+  google_fonts: ^4.0.3
 
 dev_dependencies:
   flutter_test:

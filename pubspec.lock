@@ -29,10 +29,10 @@ packages:
     dependency: "direct main"
     description:
       name: audio_waveforms
-      sha256: c07be4f7ab271a846b27b5d0e388c96d37b794dea6c9dc6fce21886f359fc2e7
+      sha256: b0b71bf8487885e637232bdc91d76d359ad4e12f03494b5c68e5230e58ba54dd
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.3"
   boolean_selector:
     dependency: transitive
     description:
@@ -160,6 +160,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  google_fonts:
+    dependency: "direct main"
+    description:
+      name: google_fonts
+      sha256: "927573f2e8a8d65c17931e21918ad0ab0666b1b636537de7c4932bdb487b190f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.3"
   http:
     dependency: transitive
     description:
