@@ -1,11 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:mboathoscope/buttons/SaveButton.dart';
 
 class headerHalf extends StatelessWidget {
   const headerHalf({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: [
         Padding(
@@ -104,11 +108,25 @@ class headerHalf extends StatelessWidget {
               ),
               Expanded(
                 flex: 6,
-                child: Image.asset(
-                  'assets/images/img_record.png',
-                  height: 150,
-                  width: 150,
-                ),
+                child: GestureDetector(
+                  onLongPress: () {
+                    // start recording
+                    log('long press');
+                  },
+                  onLongPressEnd: (_) {
+
+                    log('release press');
+                    // stop recording
+                  },
+                  child:  Image.asset(
+                    'assets/images/img_record.png',
+                    height: 150,
+                    width: 150,
+                  ),
+
+
+                  ),
+
               ),
               Expanded(
                 flex: 3,
