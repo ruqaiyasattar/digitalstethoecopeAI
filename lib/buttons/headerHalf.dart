@@ -1,8 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:mboathoscope/buttons/SaveButton.dart';
+// import 'package:flutter_sound_lite/flutter_sound.dart';
+import 'package:flutter_sound_lite/flutter_sound.dart';
+import 'package:mboathoscope/buttons/recorderButton.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class headerHalf extends StatelessWidget {
-  const headerHalf({Key? key}) : super(key: key);
+class headerHalf extends StatefulWidget {
+  const headerHalf({super.key});
+
+  @override
+  State<headerHalf> createState() => _headerHalfState();
+}
+
+class _headerHalfState extends State<headerHalf> {
+  final recorder = SoundRecorder();
+
+  // const headerHalf({Key? key}) : super(key: key);
+
+  // final recorder = FlutterSoundRecorder();
+  // bool isRecorderReady = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    recorder.init();
+  }
+
+  @override
+  void dispose() {
+    recorder.dispose();
+
+    super.dispose();
+  }
+
+  // Future initRecorder() async {
+  //   final status = await Permission.microphone.request();
+
+  //   if(status != PermissionStatus.granted){
+  //     throw 'Permission not Granted';
+  //   }
+
+  //   await recorder.openRecorder();
+  //   isRecorderReady = true;
+  // }
+
+  // Future record() async {
+  //   if(!isRecorderReady) return;
+
+  //   await recorder.startRecorder(toFile: 'audio');
+  // }
+
+  // Future stop() async {
+  //   if(!isRecorderReady) return;
+
+  //   await recorder.stopRecorder();
+  //   final audioFile = File(path!);
+
+  //   print('Recorded audio : $audioFile');
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -106,19 +162,30 @@ class headerHalf extends StatelessWidget {
                 flex: 6,
                 child: InkWell(
                   onTap: () {
-                    print("presss");
+                    // Future<String> result = await flutterSound.startRecorder();
+                    onPressed:
+                    () async {
+                      //   if(recorder.isRecording){
+                      //     await stop();
+                      //   }
+                      // }else{
+                      //   await record();
+
+                      final isRecording = await recorder.toggleRecording();
+                      // setState((){});
+                    };
                   },
                   child: Image.asset(
                     'assets/images/img_record.png',
-                    height: 150,
-                    width: 150,
+                    height: 120,
+                    width: 140,
                   ),
                 ),
               ),
               Expanded(
                 flex: 3,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 17.0, right: 17.0),
+                  padding: const EdgeInsets.only(left: 15.0, right: 17.0),
                   child: SaveButton(
                     txt: 'Save',
                     onPress: () {

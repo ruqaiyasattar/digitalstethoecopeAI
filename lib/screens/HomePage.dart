@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
       // SigleChildScrollView helps in preventing screen overflow.
       body: SingleChildScrollView(
         child: Column(
-          children: const [headerHalf(), RecordingList()],
+          children: [headerHalf(), RecordingList()],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(

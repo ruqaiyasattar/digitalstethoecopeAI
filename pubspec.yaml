@@ -36,7 +36,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   audio_waveforms: ^1.0.1
   google_fonts: ^4.0.3
-  flutter_sound: ^9.2.13
+  # flutter_sound: ^9.2.13
+  flutter_sound_lite: ^8.5.0
+  # audioplayers: ^0.19.1
+  permission_handler: ^10.2.0
+  # record: ^4.4.4
+  # audio_session: ^0.1.13
 
 dev_dependencies:
   flutter_test:

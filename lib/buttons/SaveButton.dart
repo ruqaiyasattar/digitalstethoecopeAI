@@ -13,19 +13,17 @@ class SaveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return TextButton(
       style: flatButtonStyle,
-      onPressed: (){
+      onPressed: () {
         onPress;
       },
       child: Text(
         txt,
         style: const TextStyle(
-        color:  Color(0xff3D79FD),
-      ),
+          color: Color(0xff3D79FD),
+        ),
       ),
     );
   }
-
 }
