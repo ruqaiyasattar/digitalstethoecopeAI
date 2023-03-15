@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mboathoscope/buttons/RecordingList.dart';
 import 'package:mboathoscope/buttons/headerHalf.dart';
+import 'package:mboathoscope/utils/record_util.dart';
 
 void main() {
   runApp(
@@ -33,11 +34,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF3F7FF),
-      body: Column(
-        children: const [
-          headerHalf(),
-          RecordingList()
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: const [
+            headerHalf(),
+            RecordingList()
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         //backgroundColor: const Color(0xffF3F7FF),

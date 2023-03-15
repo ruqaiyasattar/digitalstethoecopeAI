@@ -1,19 +1,19 @@
-
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
-
+import 'package:mboathoscope/utils/record_util.dart';
 
 class WaveformButton extends StatefulWidget {
-  const WaveformButton({Key? key}) : super(key: key);
+  String? recordPath;
+  WaveformButton({Key? key, this.recordPath}) : super(key: key);
 
   @override
   State<WaveformButton> createState() => _WaveformButtonState();
 }
 
-
 class _WaveformButtonState extends State<WaveformButton> {
   late final RecorderController recorderController;
-
+  var _isPlaying = false;
+  var _isRecordingOpen = false;
   void _initialiseController() {
     recorderController = RecorderController()
       ..androidEncoder = AndroidEncoder.aac
@@ -41,7 +41,7 @@ class _WaveformButtonState extends State<WaveformButton> {
       ),
       child: Row(
         children: <Widget>[
-           Expanded(
+          Expanded(
             flex: 16,
             child: Padding(
               padding: const EdgeInsets.all(2.0),
@@ -49,20 +49,31 @@ class _WaveformButtonState extends State<WaveformButton> {
                 maxRadius: 15.0,
                 backgroundColor: Colors.black,
                 child: IconButton(
-                    color: Colors.white,
-                    iconSize: 15,
-                    icon: const Icon(
-                        Icons.play_arrow,
-                      color:  Color(0xff3D79FD),
-                    ),
-                    onPressed: () {
-                      // do something
-                    },
+                  color: Colors.white,
+                  iconSize: 15,
+                  icon: Icon(
+                    _isPlaying ? Icons.pause : Icons.play_arrow,
+                    color: const Color(0xff3D79FD),
+                  ),
+                  onPressed: () {
+                    if (!_isRecordingOpen) {
+                      RecordUtil.openRecording(widget.recordPath!);
+                      _isRecordingOpen = true;
+                    }
+                    if (_isPlaying) {
+                      RecordUtil.pause();
+                    } else {
+                      RecordUtil.play();
+                    }
+                    setState(() {
+                      _isPlaying = !_isPlaying;
+                    });
+                  },
                 ),
               ),
             ),
-            ),
-           Expanded(
+          ),
+          Expanded(
             flex: 85,
             child: AudioWaveforms(
               enableGesture: true,
