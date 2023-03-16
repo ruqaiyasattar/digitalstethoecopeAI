@@ -1,79 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:mboathoscope/buttons/WaveformButton.dart';
+import 'package:provider/provider.dart';
 
-class RecordingList extends StatelessWidget {
+import '../screens/provider/sound_provider.dart';
+import '../screens/widgets/list_item.dart';
+
+class RecordingList extends StatefulWidget {
   //final List<ListItem> items;
 
-  const RecordingList({super.key});
+   RecordingList({super.key,  });
+  // final List<dynamic> records;
 
   @override
+  State<RecordingList> createState() => _RecordingListState();
+}
+
+class _RecordingListState extends State<RecordingList> {
+  @override
   Widget build(BuildContext context) {
+    final soundProvider = Provider.of<SoundProvider>(context);
     return SizedBox(
           height: 230,
-          child: ListView.builder(
+          child: soundProvider.records.isEmpty
+              ? Center(child: Text('No records yet'))
+              :ListView.builder(
+            itemCount: soundProvider.records.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  //final item = items[index];
-                  return ListTile(
-                    title: Row(
-                      children: <Widget>[
-                        const Expanded(
-                          flex: 70,
-                          child: WaveformButton(),
-                        ),
-                         Expanded(
-                          flex: 10,
-                          child: GestureDetector(
-                            onTap: (){
-                              null;
-                              //to do task
-                            },
-                            child: const Icon(
-                                Icons.edit_outlined,
-                              color: Colors.black,
-
-                            ),
-                          ),
-                        ),
-                        const Expanded(
-                          flex: 10,
-                          child: Icon(
-                              Icons.delete_sweep_outlined,
-                            color: Colors.black,
-                          ),
-                        ),
-                        const Expanded(
-                          flex: 10,
-                          child: Icon(
-                              Icons.share,
-                            color: Colors.black,
-                          ),
-                        ),
-                        Expanded(
-                          flex: 6,
-                          child: Stack(
-                            children: <Widget>[
-                              Positioned(
-                                child: Image.asset(
-                                  'assets/images/img_notiblack.png',
-                            ),
-                              ),
-                              const Positioned(
-                                top: 0.03,
-                                left: 10,
-                                child: CircleAvatar(
-                                  radius: 5,
-                                  backgroundColor: Color(0xff3D79FD),
-                                  foregroundColor: Colors.white,
-                                ), //CircularAvatar
-                              ),
-                            ]
-                          ),
-                        ),
-                      ],
-                    ),
-                    subtitle: const Text("Recording 1"),
-                  );
+                  final record = soundProvider.records[index];
+                  return Tile(i: index, record: record);
                 },
               ),
         );

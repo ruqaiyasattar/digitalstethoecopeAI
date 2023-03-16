@@ -1,11 +1,56 @@
-import 'package:flutter/material.dart';
-import 'package:mboathoscope/buttons/SaveButton.dart';
+import 'dart:io';
 
-class headerHalf extends StatelessWidget {
-  const headerHalf({Key? key}) : super(key: key);
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_sound/public/flutter_sound_recorder.dart';
+import 'package:mboathoscope/buttons/SaveButton.dart';
+import 'package:mboathoscope/screens/provider/sound_provider.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
+
+import '../controllers/sound_recorder.dart';
+
+class headerHalf extends StatefulWidget {
+   headerHalf({ Key? key, required this.onRecord,}) : super(key: key);
+
+   final Function onRecord;
+  @override
+  State<headerHalf> createState() => _headerHalfState();
+}
+enum RecordingState {
+  UnSet,
+  Set,
+  Recording,
+  Stopped,
+}
+class _headerHalfState extends State<headerHalf> {
+
+
+  late  SoundProvider provider;
+
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
+      provider = Provider.of<SoundProvider>(context, listen: false);
+      await provider.init();
+
+      // provider.checkpermissions();
+
+    });
+  }
+
+  @override
+  void dispose() {
+    provider.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final soundProvider = Provider.of<SoundProvider>(context);
+
     return Column(
       children: [
         Padding(
@@ -37,12 +82,13 @@ class headerHalf extends StatelessWidget {
                             color: const Color(0xff3D79FD),
                           ),
                         ),
-                        const Positioned(
+                         const Positioned(
                           bottom: 0.02,
                           right: 3,
                           child: CircleAvatar(
                             radius: 5,
-                            backgroundColor: Color(0xff3D79FD),
+                            backgroundColor: Color(
+                                0xff3D79FD),
                             foregroundColor: Colors.white,
                           ), //CircularAvatar
                         ),
@@ -102,12 +148,32 @@ class headerHalf extends StatelessWidget {
                     ],
                   ),
               ),
-              Expanded(
-                flex: 6,
-                child: Image.asset(
-                  'assets/images/img_record.png',
-                  height: 150,
-                  width: 150,
+              GestureDetector(
+                onTap: (){
+                  soundProvider.setIsRecording();
+                  soundProvider.onRecordButtonPressed();
+                },
+                child: SizedBox(
+                  height: 140,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        flex: 6,
+                        child: (soundProvider.isRecording ) ? Container(
+                          height: 150,
+                          width: 150,
+                          decoration: BoxDecoration(
+                            color: const Color(0xff3D79FD),
+                            borderRadius: BorderRadius.circular(100)
+                          ),
+                            child: Icon(Icons.mic,size: 70,color: Colors.white,)):Image.asset(
+                          'assets/images/img_record.png',
+                          height: 150,
+                          width: 150,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Expanded(
@@ -115,10 +181,8 @@ class headerHalf extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 17.0, right: 17.0),
                   child: SaveButton(
-                    txt: 'Save',
-                    onPress: (){
-                      null;
-                      },
+                    txt: 'Save', onPress:widget.onRecord,
+
                   ),
                 ),
               ),
@@ -161,4 +225,6 @@ class headerHalf extends StatelessWidget {
       ],
     );
   }
+
+
 }

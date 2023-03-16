@@ -1,19 +1,23 @@
 
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
+import 'package:mboathoscope/screens/provider/sound_provider.dart';
+import 'package:provider/provider.dart';
 
 
 class WaveformButton extends StatefulWidget {
-  const WaveformButton({Key? key}) : super(key: key);
-
-  @override
+   WaveformButton({ required this.isPlaying,required this.onPlay, Key? key, required this.record, required this.i}) : super(key: key);
+  Function onPlay;
+  final int i;
+  final bool isPlaying;
+   String record;
+   @override
   State<WaveformButton> createState() => _WaveformButtonState();
 }
 
 
 class _WaveformButtonState extends State<WaveformButton> {
   late final RecorderController recorderController;
-
   void _initialiseController() {
     recorderController = RecorderController()
       ..androidEncoder = AndroidEncoder.aac
@@ -26,6 +30,11 @@ class _WaveformButtonState extends State<WaveformButton> {
   void initState() {
     super.initState();
     _initialiseController();
+  }
+  @override
+  void dispose() {
+    recorderController.dispose();
+    super.dispose();
   }
 
   @override
@@ -51,12 +60,18 @@ class _WaveformButtonState extends State<WaveformButton> {
                 child: IconButton(
                     color: Colors.white,
                     iconSize: 15,
-                    icon: const Icon(
+                    icon: widget.isPlaying ? Icon(
+                      Icons.pause,
+                      color:  Color(0xff3D79FD),
+                    ):Icon(
                         Icons.play_arrow,
                       color:  Color(0xff3D79FD),
                     ),
-                    onPressed: () {
-                      // do something
+                    onPressed: () async {
+
+                      await widget.onPlay(playerController:recorderController,
+                          filePath: widget.record, index: widget.i);
+
                     },
                 ),
               ),

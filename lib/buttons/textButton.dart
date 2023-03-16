@@ -16,5 +16,5 @@ final ButtonStyle flatButtonStyle = TextButton.styleFrom(
   ),
     borderRadius: BorderRadius.circular(25),
   ),
-  backgroundColor: const Color(0xffF3F7FF),
+  backgroundColor:  Color(0xffF3F7FF),
 );
