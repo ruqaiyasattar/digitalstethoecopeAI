@@ -1,19 +1,85 @@
-import 'package:flutter/material.dart';
-import 'package:mboathoscope/buttons/RecordingList.dart';
-import 'package:mboathoscope/buttons/headerHalf.dart';
+// import 'package:flutter/material.dart';
+// import 'package:mboathoscope/buttons/RecordingList.dart';
+// import 'package:mboathoscope/buttons/headerHalf.dart';
 
-void main() {
-  runApp(
-    MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const HomePage(),
-    ),
-  );
-}
+// void main() {
+//   runApp(
+//     MaterialApp(
+//       title: 'Flutter Demo',
+//       theme: ThemeData(primarySwatch: Colors.blue),
+//       home: const HomePage(),
+//     ),
+//   );
+// }
+
+// class HomePage extends StatefulWidget {
+//   const HomePage({Key? key}) : super(key: key);
+
+//   @override
+//   State<HomePage> createState() => _HomePageState();
+// }
+
+// class _HomePageState extends State<HomePage> {
+//   // This widget is the root of your application.
+//   int _selectedIndex = 0;
+//   void _onItemTapped(int index) {
+//     setState(() {
+//       _selectedIndex = index;
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: const Color(0xffF3F7FF),
+
+//       // SigleChildScrollView helps in preventing screen overflow.
+//       body: SingleChildScrollView(
+//         child: Column(
+//           children: [headerHalf(), RecordingList()],
+//         ),
+//       ),
+//       bottomNavigationBar: BottomNavigationBar(
+//         //backgroundColor: const Color(0xffF3F7FF),
+//         items: const <BottomNavigationBarItem>[
+//           BottomNavigationBarItem(
+//             backgroundColor: Colors.white,
+//             icon: ImageIcon(
+//               AssetImage("assets/images/img_profile.png"),
+//             ),
+//             label: '',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: ImageIcon(
+//               AssetImage("assets/images/img_explore.png"),
+//             ),
+//             label: '',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: ImageIcon(
+//               AssetImage("assets/images/img_recordings.png"),
+//             ),
+//             label: '',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: ImageIcon(
+//               AssetImage("assets/images/img_setting.png"),
+//             ),
+//             label: '',
+//           )
+//         ],
+//         selectedItemColor: const Color(0xff3D79FD),
+//         unselectedItemColor: Colors.black,
+//         onTap: _onItemTapped,
+//       ),
+//     );
+//   }
+// }
+import 'package:flutter/material.dart';
+import 'package:mboathoscope/buttons/recorder_Home_view.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -22,47 +88,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffF3F7FF),
-
-      // SigleChildScrollView helps in preventing screen overflow.
-      body: SingleChildScrollView(
-        child: Column(
-          children: [headerHalf(), RecordingList()],
-        ),
+    return MaterialApp(
+      title: 'Voice Recorder',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        //backgroundColor: const Color(0xffF3F7FF),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            backgroundColor: Colors.white,
-            icon: ImageIcon(
-              AssetImage("assets/images/img_profile.png"),
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage("assets/images/img_explore.png"),
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage("assets/images/img_recordings.png"),
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage("assets/images/img_setting.png"),
-            ),
-            label: '',
-          )
-        ],
-        selectedItemColor: const Color(0xff3D79FD),
-        unselectedItemColor: Colors.black,
-        onTap: _onItemTapped,
+      home: const RecorderHomeView(
+        title: 'Flutter Voice',
       ),
     );
   }
