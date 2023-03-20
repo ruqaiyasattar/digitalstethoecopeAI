@@ -7,24 +7,28 @@ class StartPage extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: const Color(0xffF3F7FF),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Flexible(
             flex: 3,
             fit: FlexFit.loose,
             child: Padding(
-              padding: const EdgeInsets.only(left: 26, right: 26, top: 87),
+              padding: EdgeInsets.symmetric(horizontal: size.width / 8.0),
               child: Image.asset(
                 'assets/images/img.png',
-                height: 300,
+                height: MediaQuery.of(context).size.height / 4,
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 23, right: 23),
-            child: Text(
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: size.width / 8.0),
+            child: const Text(
               'mboathoscope',
               style: TextStyle(
                 color: Color(0xff3D79FD),
@@ -40,9 +44,9 @@ class StartPage extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, '/rolepage');
             },
-            child: const Padding(
-              padding: EdgeInsets.only(bottom: 199),
-              child: CustomButton(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: size.width / 8.0),
+              child: const CustomButton(
                 txt: 'Get Started',
               ),
             ),
