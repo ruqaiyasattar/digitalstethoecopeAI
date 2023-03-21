@@ -35,9 +35,6 @@ class _headerHalfState extends State<headerHalf> {
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
       provider = Provider.of<SoundProvider>(context, listen: false);
       await provider.init();
-
-      // provider.checkpermissions();
-
     });
   }
 

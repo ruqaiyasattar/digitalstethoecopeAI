@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mboathoscope/buttons/RecordingList.dart';
-import 'package:mboathoscope/screens/provider/record_provider.dart';
 import 'package:mboathoscope/screens/provider/sound_provider.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';

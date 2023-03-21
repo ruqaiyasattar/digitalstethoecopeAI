@@ -21,13 +21,14 @@ class _TileState extends State<Tile> {
   bool _isPlaying = false;
   bool _isPlayed = false;
   int _selectedIndex = -1;
+  late String date;
   late AudioPlayer audioPlayer ;
 
   @override
   void initState() {
     super.initState();
     audioPlayer = AudioPlayer();
-
+   date =  _getDateFromFilePatah(filePath: widget.record);
   }
 
   @override
@@ -98,7 +99,7 @@ class _TileState extends State<Tile> {
           ),
         ],
       ),
-      subtitle:  Text("Recording ${widget.i}"),
+      subtitle:  Text("${date} "),
     );
   }
   Future<void> _onPlay({required playerController,required String filePath, required int index}) async {
@@ -149,7 +150,6 @@ class _TileState extends State<Tile> {
     }
     audioPlayer.onPlayerCompletion.listen((_) async {
       await playerController.stop();
-
       setState(() {
         _isPlaying = false;
         _completedPercentage = 0.0;

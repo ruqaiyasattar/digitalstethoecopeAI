@@ -29,7 +29,7 @@ class StartPage extends StatelessWidget {
                    style: TextStyle(
                    color: Color(0xff3D79FD),
                    fontWeight: FontWeight.bold,
-                   fontSize: 50,
+                   fontSize: 48,
                 ),
               ),
             ),
