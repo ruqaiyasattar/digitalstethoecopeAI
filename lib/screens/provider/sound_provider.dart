@@ -68,7 +68,7 @@ class SoundProvider with ChangeNotifier{
       appDirectory.list().listen((onData) {
         if (onData.path.contains('.aac')) records.add(onData.path);
       }).onDone(() {
-        records = records.reversed.toList();
+        // records = records.reversed.toList();
         notifyListeners();
       });
     });
