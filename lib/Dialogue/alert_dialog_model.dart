@@ -11,7 +11,6 @@ class DialogUtils {
       {
         required String title,
         String deleteBtnText = "Delete",
-        String saveBtnText = "Save",
         required Function deleteBtnFunction,
       }) {
     showDialog(
