@@ -1,7 +1,5 @@
-
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
-
 
 class WaveformButton extends StatefulWidget {
   const WaveformButton({Key? key}) : super(key: key);
@@ -9,7 +7,6 @@ class WaveformButton extends StatefulWidget {
   @override
   State<WaveformButton> createState() => _WaveformButtonState();
 }
-
 
 class _WaveformButtonState extends State<WaveformButton> {
   late final RecorderController recorderController;
@@ -41,7 +38,7 @@ class _WaveformButtonState extends State<WaveformButton> {
       ),
       child: Row(
         children: <Widget>[
-           Expanded(
+          Expanded(
             flex: 16,
             child: Padding(
               padding: const EdgeInsets.all(2.0),
@@ -49,20 +46,20 @@ class _WaveformButtonState extends State<WaveformButton> {
                 maxRadius: 15.0,
                 backgroundColor: Colors.black,
                 child: IconButton(
-                    color: Colors.white,
-                    iconSize: 15,
-                    icon: const Icon(
-                        Icons.play_arrow,
-                      color:  Color(0xff3D79FD),
-                    ),
-                    onPressed: () {
-                      // do something
-                    },
+                  color: Colors.white,
+                  iconSize: 10,
+                  icon: const Icon(
+                    Icons.play_arrow,
+                    color: Color(0xff3D79FD),
+                  ),
+                  onPressed: () {
+                    // do something
+                  },
                 ),
               ),
             ),
-            ),
-           Expanded(
+          ),
+          Expanded(
             flex: 85,
             child: AudioWaveforms(
               enableGesture: true,
