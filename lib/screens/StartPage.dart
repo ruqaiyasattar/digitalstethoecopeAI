@@ -1,5 +1,8 @@
+
+
 import 'package:flutter/material.dart';
-import 'package:mboathoscope/CustomButton.dart';
+import 'package:mboathoscope/buttons/CustomButton.dart';
+import '../Utils/Helpers.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -21,14 +24,14 @@ class StartPage extends StatelessWidget {
               height: 280,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 23, right: 23),
+          Padding(
+            padding: const EdgeInsets.only(left: 23, right: 23),
             child: Text(
                 'mboathoscope',
                  style: TextStyle(
-                 color: Color(0xff3D79FD),
+                 color: Helpers.appBlueColor,
                  fontWeight: FontWeight.bold,
-                 fontSize: 50,
+                 fontSize: 45,
               ),
             ),
           ),

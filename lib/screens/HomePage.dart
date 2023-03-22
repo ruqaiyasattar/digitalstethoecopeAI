@@ -1,6 +1,11 @@
+
+
+import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
-import 'package:mboathoscope/buttons/RecordingList.dart';
+import 'package:mboathoscope/Utils/Helpers.dart';
 import 'package:mboathoscope/buttons/headerHalf.dart';
+
+
 
 void main() {
   runApp(
@@ -21,6 +26,13 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+
+///Get locally saved heartbeats
+List<PlayerController> getRecordedHeartBeats(){
+  return [];
+}
+
+
 class _HomePageState extends State<HomePage> {
   // This widget is the root of your application.
   int _selectedIndex = 0;
@@ -33,12 +45,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF3F7FF),
-      body: Column(
-        children: const [
-          headerHalf(),
-          RecordingList()
-        ],
-      ),
+      resizeToAvoidBottomInset: false, ///Prevent overflows/renderflex error triggered from keyborad ejection/usage
+      body: const HeaderHalf(),
       bottomNavigationBar: BottomNavigationBar(
         //backgroundColor: const Color(0xffF3F7FF),
         items: const <BottomNavigationBarItem>[
@@ -68,7 +76,7 @@ class _HomePageState extends State<HomePage> {
             label: '',
           )
         ],
-        selectedItemColor:  const Color(0xff3D79FD),
+        selectedItemColor:  Helpers.appBlueColor,
         unselectedItemColor: Colors.black,
         onTap: _onItemTapped,
       ),
