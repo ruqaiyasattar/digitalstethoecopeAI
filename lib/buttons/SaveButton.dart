@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mboathoscope/buttons/textButton.dart';
+import 'package:provider/provider.dart';
+
+import '../screens/provider/sound_provider.dart';
 
 class SaveButton extends StatelessWidget {
   final String txt;
@@ -13,16 +16,17 @@ class SaveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final soundProvider = Provider.of<SoundProvider>(context);
 
     return TextButton(
       style: flatButtonStyle,
       onPressed: (){
-        onPress;
+        onPress();
       },
       child: Text(
         txt,
-        style: const TextStyle(
-        color:  Color(0xff3D79FD),
+        style:  TextStyle(
+        color:  (soundProvider.getSaved()) ? const Color(0xff3D79FD):Colors.black,
       ),
       ),
     );
