@@ -1,21 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:mboathoscope/screens/HomePage.dart';
-import 'package:mboathoscope/screens/RolePage.dart';
-import 'package:mboathoscope/screens/StartPage.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'screens/home_page.dart';
+import 'screens/role_page.dart';
+import 'screens/start_page.dart';
 
 void main() {
   runApp(
-    MaterialApp(
-      // title: 'Flutter Demo',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const StartPage(),
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '': (context) => const StartPage(),
-        '/rolepage': (context) => const RolePage(),
-        '/homepage': (context) => const HomePage(),
-      },
+    ProviderScope(
+      child: MaterialApp(
+        // title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: const ColorScheme.light(
+            primary: Color(0xff3D79FD),
+            background: Color(0xffF3F7FF),
+          ),
+        ),
+        debugShowCheckedModeBanner: false,
+        routes: AppRoutes.routes,
+      ),
     ),
   );
+}
+
+class AppRoutes {
+  static const initial = '/';
+  static const rolePage = '/rolePage';
+  static const homePage = '/homepage';
+
+  static Map<String, Widget Function(BuildContext)> get routes => {
+        initial: (context) => const StartPage(),
+        rolePage: (context) => const RolePage(),
+        homePage: (context) => const HomePage(),
+      };
 }
