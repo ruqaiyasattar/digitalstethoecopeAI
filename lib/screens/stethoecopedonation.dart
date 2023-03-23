@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MyProduction extends StatefulWidget {
-  const MyProduction({Key? key}) : super(key: key);
+class DonationPage extends StatefulWidget {
+  const DonationPage({Key? key}) : super(key: key);
 
   @override
   _MyProductionState createState() => _MyProductionState();
 }
 
-class _MyProductionState extends State<MyProduction> {
+class _MyProductionState extends State<DonationPage> {
   bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
         appBar: AppBar(
+          
           title: Text(
             'Donation for the Stethoecope to the Mboalab',
-            style: TextStyle(color: Colors.blue),
+            style: TextStyle(color: Colors.blue, fontSize: 33, fontWeight: FontWeight.bold),
           ),
           backgroundColor: Colors.black,
         ),
@@ -141,10 +142,7 @@ class _MyProductionState extends State<MyProduction> {
                           ),
                           SizedBox(
                             height: 20,
-                          ),Text(
-                                  'Adding please wait....',
-                                  style: const TextStyle(color: Colors.white),
-                                ),
+                          ),
                           Container(
                               padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
                               width: double.infinity,
