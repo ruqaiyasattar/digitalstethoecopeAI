@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mboathoscope/buttons/WaveformButton.dart';
 
+
 class RecordingList extends StatelessWidget {
-  //final List<ListItem> items;
+
 
   const RecordingList({super.key});
 
@@ -13,13 +14,14 @@ class RecordingList extends StatelessWidget {
           child: ListView.builder(
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  //final item = items[index];
+
                   return ListTile(
                     title: Row(
                       children: <Widget>[
-                        const Expanded(
+                         Expanded(
                           flex: 70,
-                          child: WaveformButton(),
+                          child: Text(".."),
+                          // WaveBubble(),
                         ),
                          Expanded(
                           flex: 10,

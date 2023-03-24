@@ -11,7 +11,8 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 28.0, right: 28.0,top: 10.0, bottom: 10.0),
+      width: 40,
+      padding: const EdgeInsets.only(left: 10.0, right: 10.0,top: 10.0, bottom: 10.0),
       decoration: BoxDecoration(
         color: const Color(0xffC5D7FE),
         borderRadius: BorderRadius.circular(25.0),
@@ -19,7 +20,7 @@ class CustomButton extends StatelessWidget {
       child: InkWell(
         child: Text(
           txt,
-          style: const TextStyle(color: Colors.black),
+          style: const TextStyle(color: Colors.black,fontSize: 18,),
         ),
       ),
     );

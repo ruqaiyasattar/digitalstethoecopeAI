@@ -1,6 +1,14 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mboathoscope/buttons/RecordingList.dart';
 import 'package:mboathoscope/buttons/headerHalf.dart';
+
+import 'package:simple_ripple_animation/simple_ripple_animation.dart';
+import 'package:audio_waveforms/audio_waveforms.dart';
+
+import '../buttons/app_body.dart';
+import '../buttons/textButton.dart';
+
 
 void main() {
   runApp(
@@ -22,8 +30,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // This widget is the root of your application.
   int _selectedIndex = 0;
+  List<dynamic> records = [];
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -33,14 +41,17 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF3F7FF),
-      body: Column(
-        children: const [
-          headerHalf(),
-          RecordingList()
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children:  [
+            headerHalf(),
+            Homebody(),
+            // RecordingList()
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        //backgroundColor: const Color(0xffF3F7FF),
+        backgroundColor: const Color(0xffF3F7FF),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             backgroundColor:  Color(0xffF3F7FF),
@@ -75,3 +86,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
+
+
+
+
+
+
