@@ -12,10 +12,10 @@ class RolePage extends StatelessWidget {
       body: Column(
         children: [
           const SizedBox(
-            height: 50,
+            height: 100,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 26, right: 26, top: 87),
+            padding: const EdgeInsets.only(left: 26,right: 26, top: 87),
             child: Image.asset(
               'assets/images/img_role.png',
               height: 280,
@@ -24,7 +24,7 @@ class RolePage extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.only(left: 23, right: 23),
             child: Text(
-              'Please select what your role is',
+              'Please select your role',
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -33,17 +33,17 @@ class RolePage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 55, right: 38, left: 38),
-            child: Column(
+            padding: const EdgeInsets.only(top: 35, right: 0, left: 19.0),
+            child: Row(
               children: const [
-                CustomButton(
+                 CustomButton(
                   txt: 'Transmitter',
                 ),
-                SizedBox(
-                  height: 30,
+                 SizedBox(
+                  width: 5,
                 ),
-                CustomButton(
-                  txt: 'Receiver',
+                 CustomButton(
+                  txt: ' Receiver  ',
                 )
               ],
             ),
@@ -52,24 +52,33 @@ class RolePage extends StatelessWidget {
             height: 20,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 250, top: 25, right: 25),
+            padding: const EdgeInsets.only(left: 0, top: 40),
             child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/homepage');
+              onTap: (){
+                Navigator.pushNamed(context,'/homepage');
               },
-              child: Center(
+              child: Container(
+                width: 120,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                decoration: BoxDecoration(
+                  // color: Colors.redAccent,
+                  gradient: LinearGradient(
+                    colors: [Color(0xffC5D7FE),Colors.blueAccent],
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: RichText(
                   text: const TextSpan(
                     children: [
                       TextSpan(
                         text: "Next ",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.black,fontSize: 20)
                       ),
                       WidgetSpan(
-                        child: Icon(Icons.arrow_circle_right, size: 16),
+                        child: Icon(Icons.arrow_forward_ios, size: 20),
                       ),
                     ],
                   ),
