@@ -49,6 +49,7 @@ The contents in this project follow the following structure:
 │
 └───Home
     |── Heart and lung sound Recording section
+    |
     |                                    │── Play and Pause recording
     │── Recorded sound playing section ──│── Audio waveform player
                                          │── Delete recording
