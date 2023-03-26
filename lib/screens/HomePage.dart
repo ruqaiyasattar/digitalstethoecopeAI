@@ -32,6 +32,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   late final SoundProvider provider;
   List<dynamic> records = [];
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -54,7 +55,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // final soundProvider = Provider.of<SoundProvider>(context);
 
     return Scaffold(
       backgroundColor: const Color(0xffF3F7FF),
@@ -67,7 +67,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        //backgroundColor: const Color(0xffF3F7FF),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             backgroundColor:  Color(0xffF3F7FF),

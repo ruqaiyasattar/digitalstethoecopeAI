@@ -44,6 +44,18 @@ class SoundProvider with ChangeNotifier{
     notifyListeners();
   }
 
+   deleteRecord(String path) async {
+      try {
+        final file = await File(path);
+        await file.delete();
+      } catch (e) {
+        return 0;
+      }
+      await getRecords();
+      notifyListeners();
+
+  }
+
   setSaved(bool isSave){
     isSaved = isSave;
     notifyListeners();
@@ -61,6 +73,8 @@ class SoundProvider with ChangeNotifier{
      notifyListeners();
    }
 
+
+
   Future<List> getRecords() async {
      records = [];
     await getApplicationDocumentsDirectory().then((value) {
@@ -68,7 +82,6 @@ class SoundProvider with ChangeNotifier{
       appDirectory.list().listen((onData) {
         if (onData.path.contains('.aac')) records.add(onData.path);
       }).onDone(() {
-        // records = records.reversed.toList();
         notifyListeners();
       });
     });
@@ -76,15 +89,12 @@ class SoundProvider with ChangeNotifier{
   }
 
   Future onRecordComplete() async {
-    records.clear();
-     // records = [];
+    // records.clear();
+     records = [];
      appDirectory.list().listen((onData) {
       if (onData.path.contains('.aac')) records.add(onData.path);
-    }).onDone(()  {
+    }).onDone(()  async {
        // records = (records..sort()).reversed.toList();
-
-       // records.sort();
-       // records = List.from(records.reversed);
 
       isSaved = true;
       recordingState = RecordingState.Set;

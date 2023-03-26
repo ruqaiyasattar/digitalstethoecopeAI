@@ -19,7 +19,19 @@ class SaveButton extends StatelessWidget {
     final soundProvider = Provider.of<SoundProvider>(context);
 
     return TextButton(
-      style: flatButtonStyle,
+      style: TextButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(
+              color:  Color(0xff3D79FD),
+              width: 1,
+              style: BorderStyle.solid
+          ),
+          borderRadius: BorderRadius.circular(25),
+        ),
+        backgroundColor:  (soundProvider.getSaved()) ? Color(0xffF3F7FF):Color(
+            0xfffd0043),
+      ),
+
       onPressed: (){
         onPress();
       },

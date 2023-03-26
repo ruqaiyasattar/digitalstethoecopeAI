@@ -39,6 +39,7 @@ class _TileState extends State<Tile> {
   }
   @override
   Widget build(BuildContext context) {
+    final soundProvider = Provider.of<SoundProvider>(context);
 
     return ListTile(
       title: Row(
@@ -62,33 +63,37 @@ class _TileState extends State<Tile> {
               ),
             ),
           ),
-          const Expanded(
+           Expanded(
             flex: 10,
-            child: Icon(
+            child: IconButton(onPressed:()  {
+               showAlertDialog(context, soundProvider);
+              }
+              , icon:Icon(
               Icons.delete_sweep_outlined,
               color: Colors.black,
-            ),
-          ),
-          const Expanded(
-            flex: 10,
-            child: Icon(
+              ),)
+              ),
+              const Expanded(
+              flex: 10,
+              child: Icon(
               Icons.share,
               color: Colors.black,
-            ),
-          ),
-          Expanded(
-            flex: 6,
-            child: Stack(
-                children: <Widget>[
-                  Positioned(
-                    child: Image.asset(
-                      'assets/images/img_notiblack.png',
-                    ),
-                  ),
-                   const Positioned(
-                    top: 0.03,
-                    left: 10,
-                    child: CircleAvatar(
+              ),
+              ),
+              Expanded(
+              flex: 6,
+              child: Stack(
+              children: <Widget>[
+              Positioned(
+              child: Image.asset(
+              'assets/images/img_notiblack.png',
+              ),
+              ),
+              const Positioned(
+              top: 0.03,
+              left: 10,
+              child: CircleAvatar(
+
                       radius: 5,
                       backgroundColor: Color(0xff3D79FD),
                       foregroundColor: Colors.white,
@@ -103,8 +108,7 @@ class _TileState extends State<Tile> {
     );
   }
   Future<void> _onPlay({required playerController,required String filePath, required int index}) async {
-
-
+     print("jiii$filePath");
     if (!_isPlaying && !_isPlayed) {
       int result = await audioPlayer.play(filePath ,isLocal: true);
       await playerController.record();
@@ -186,4 +190,40 @@ class _TileState extends State<Tile> {
 
     return ('$year-$month-$day');
   }
+showAlertDialog(BuildContext context,SoundProvider soundProvider) {
+
+  // set up the buttons
+  Widget cancelButton = TextButton(
+    child: Text("Cancel"),
+    onPressed:  () {
+      Navigator.pop(context);
+    },
+  );
+  Widget continueButton = TextButton(
+    child: Text("Continue"),
+    onPressed:  () async {
+      await soundProvider.deleteRecord(widget.record);
+      Navigator.pop(context);
+
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Confirm Delete"),
+    content: Text("Are you sure you want to delete Audio?"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
 }

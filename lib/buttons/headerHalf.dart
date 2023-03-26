@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:awesome_ripple_animation/awesome_ripple_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_sound/public/flutter_sound_recorder.dart';
@@ -145,34 +146,41 @@ class _headerHalfState extends State<headerHalf> {
                     ],
                   ),
               ),
-              GestureDetector(
-                onTap: (){
-                  soundProvider.setIsRecording();
-                  soundProvider.onRecordButtonPressed();
-                },
-                child: SizedBox(
-                  height: 140,
-                  child: Column(
-                    children: [
+
                       Expanded(
                         flex: 6,
-                        child: (soundProvider.isRecording ) ? Container(
+                        child: SizedBox(
                           height: 150,
                           width: 150,
-                          decoration: BoxDecoration(
-                            color: const Color(0xff3D79FD),
-                            borderRadius: BorderRadius.circular(100)
-                          ),
-                            child: Icon(Icons.mic,size: 70,color: Colors.white,)):Image.asset(
-                          'assets/images/img_record.png',
-                          height: 150,
-                          width: 150,
-                        ),
+                          child: InkWell(
+                            onTap: (){
+                              soundProvider.setIsRecording();
+                              soundProvider.onRecordButtonPressed();
+                            },
+                            child:(soundProvider.isRecording ) ?  RippleAnimation(
+                              repeat: true,
+                              color: const Color(0xff3D79FD),
+                              minRadius: 60,
+                              ripplesCount: 6,
+                              child:  const CircleAvatar(
+                                   maxRadius: 100,
+                                  backgroundColor: Color(0xff3D79FD),
+                                  child: Icon(Icons.stop,size: 70,color: Colors.white,)),
+                            )
+                          :CircleAvatar(
+                              maxRadius: 50,
+                            backgroundColor: Colors.white,
+                            child: Image.asset(
+                              'assets/images/img_record.png',
+
+                            ),
+                          ),),
+                        )
                       ),
-                    ],
-                  ),
-                ),
-              ),
+
+
+
+
               Expanded(
                 flex: 3,
                 child: Padding(

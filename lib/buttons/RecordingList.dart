@@ -27,7 +27,7 @@ class _RecordingListState extends State<RecordingList> {
             itemCount: soundProvider.records.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  final record = soundProvider.records[index];
+                  var record = soundProvider.getRecord()[index];
                   return Tile(i: index, record: record);
                 },
               ),
