@@ -33,8 +33,9 @@ class RolePage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 35, right: 0, left: 19.0),
+            padding: const EdgeInsets.only(top: 35, right: 0, left: 0.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: const [
                  CustomButton(
                   txt: 'Transmitter',
