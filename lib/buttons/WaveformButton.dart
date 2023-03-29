@@ -1,295 +1,159 @@
 
+
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'dart:io';
-import 'package:flutter/services.dart';
+import '../Utils/Helpers.dart';
 
 
-class WaveBubble extends StatefulWidget {
-  final bool isSender;
-  final int? index;
-  final String? path;
-  final double? width;
-  final Directory appDirectory;
-
-  const WaveBubble({
-    Key? key,
-    required this.appDirectory,
-    this.width,
-    this.index,
-    this.isSender = false,
-    this.path,
-  }) : super(key: key);
+class WaveformButton extends StatefulWidget {
+  final PlayerController playerController;
+  const WaveformButton({Key? key, required this.playerController}) : super(key: key);
 
   @override
-  State<WaveBubble> createState() => _WaveBubbleState();
+  State<WaveformButton> createState() => _WaveformButtonState();
 }
 
-class _WaveBubbleState extends State<WaveBubble> {
-  File? file;
 
-  late PlayerController controller;
-  late StreamSubscription<PlayerState> playerStateSubscription;
+class _WaveformButtonState extends State<WaveformButton> {
+  late final PlayerController playerController; ///Recording Player
+  late bool isPlaying; ///state of recording player
+  late Duration duration; ///Duration of recording
+  static int millisecondsInAnHour = 3600000; ///Equivalence of milliseconds in an hour
 
-  final playerWaveStyle = const PlayerWaveStyle(
-    fixedWaveColor: Colors.blueGrey,
-    liveWaveColor: Colors.blueAccent,
-    scrollScale: 4.0,
-    spacing: 5,
-  );
+
 
   @override
   void initState() {
     super.initState();
-    controller = PlayerController();
-    _preparePlayer();
-    playerStateSubscription = controller.onPlayerStateChanged.listen((_) {
-      setState(() {});
+
+    ///Sets recording's player state to not playing upon page initialization
+    isPlaying = false;
+
+    ///sets the locally declared player to the pass player from the recordings Class
+    playerController = widget.playerController;
+
+    ///Initializes the duration of the player's maximum duration
+    duration = Duration(milliseconds: playerController.maxDuration);
+
+    ///Used to listen and update duration during the cause of playing
+    playerController.onCurrentDurationChanged.listen((event) {
+      setState(() {
+        duration = Duration(milliseconds: event);
+      });
+    });
+
+    ///Gets player completion event and use to trigger player to
+    ///pause when entire audio has been listened
+    playerController.onCompletion.listen((event) {
+      setState(() {
+        ///Set playing to not playing since player has reached its end
+        isPlaying = !isPlaying;
+      });
     });
   }
 
-  void _preparePlayer() async {
-    // Opening file from assets folder
-    if (widget.index != null) {
-      file = File('${widget.appDirectory.path}/audio${widget.index}.mp3');
-      await file?.writeAsBytes(
-          (await rootBundle.load('assets/audios/audio${widget.index}.mp3'))
-              .buffer
-              .asUint8List());
-    }
-    if (widget.index == null && widget.path == null && file?.path == null) {
-      return;
-    }
-    // Prepare player with extracting waveform if index is even.
-    controller.preparePlayer(
-      path: widget.path ?? file!.path,
-      shouldExtractWaveform: widget.index?.isEven ?? true,
-    );
-    // Extracting waveform separately if index is odd.
-    if (widget.index?.isOdd ?? false) {
-      controller
-          .extractWaveformData(
-        path: widget.path ?? file!.path,
 
-        noOfSamples:
-        playerWaveStyle.getSamplesForWidth(widget.width ?? 200),
-      )
-          .then((waveformData) => debugPrint(waveformData.toString()));
-    }
-  }
+
 
   @override
   void dispose() {
-    playerStateSubscription.cancel();
-    controller.dispose();
     super.dispose();
+    ///Removes all listeners associated to a player
+    playerController.removeListener((){});
+
+    ///Stop players since it will no longer be played
+    playerController.stopPlayer();
+
+    ///Causes an error/audio leaks so removed,
+    ///will investigate later on what causes this
+    // playerController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return widget.path != null || file?.path != null
-        ? Align(
-      alignment:
-      widget.isSender ? Alignment.center: Alignment.center,
-      child: Container(
-        // margin: const EdgeInsets.symmetric(horizontal: 12),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.black),
-          color: widget.isSender
-              ? const Color(0x5ebcc9e5)
-              : const Color(0x5ebcc9e5),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          margin: const EdgeInsets.all(5.0),
+          padding: const EdgeInsets.all(3.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40.0),
+            color: const Color(0xffF3F7FF),
+            border: Border.all(color: Colors.black),
+          ),
+          child: Row(
+            children: <Widget>[
+               Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: CircleAvatar(
+                      maxRadius: 15.0,
+                      backgroundColor: Colors.black,
+                      child: IconButton(
+                          color: Colors.white,
+                          iconSize: 15,
+                          icon: isPlaying ? Icon(Icons.pause, color:  Helpers.appBlueColor):
+                          Icon(Icons.play_arrow, color:  Helpers.appBlueColor,),
+                          onPressed: () {
+
+                            try{
+
+                              if(isPlaying){
+                                ///pause player without freeing resources hence allow replay/continue
+                                playerController.pausePlayer();
+
+                              }else{
+                                ///FinishMode.pause: Allows audio to replayed several times starting from 0 second
+                                playerController.startPlayer(finishMode: FinishMode.pause);
+                              }
+
+                              ///Toggls between playing and not playing
+                              setState(() {
+                                isPlaying = !isPlaying;
+                              });
+
+                            }catch(e){
+                              ///Print error message in a safe and production friendly way
+                              debugPrint(e.toString());
+                            }
+
+                          },
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 5,
+                  child: AudioFileWaveforms(
+                    size: Size(MediaQuery.of(context).size.width, 40.0),
+                    playerController: playerController,
+                    enableSeekGesture: true,
+                    waveformType: WaveformType.long,
+                    waveformData: playerController.waveformData,
+                    playerWaveStyle: const PlayerWaveStyle(
+                      fixedWaveColor: Colors.white54,
+                      liveWaveColor: Colors.blueAccent,
+                      spacing: 6,
+                    ),
+                  ),
+                ),
+
+            ],
+          ),
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (!controller.playerState.isStopped)
-              IconButton(
-                onPressed: () async {
-                  controller.playerState.isPlaying
-                      ? await controller.pausePlayer()
-                      : await controller.startPlayer(
-                    finishMode: FinishMode.loop,
-                  );
-                },
-                icon: CircleAvatar(
-                  maxRadius: 15.0,
-                  backgroundColor: Colors.black,
-                  child: Icon(
-                    controller.playerState.isPlaying
-                        ? Icons.pause
-                        : Icons.play_arrow,
-                  ),
-                ),
-                color: Colors.blueAccent,
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-              ),
-            AudioFileWaveforms(
-              size: Size(MediaQuery.of(context).size.width / 2.2, 50),
-              playerController: controller,
 
-              waveformType: widget.index?.isOdd ?? false
-                  ? WaveformType.fitWidth
-                  : WaveformType.long,
-              playerWaveStyle: playerWaveStyle,
+        Padding(
+          padding: const EdgeInsets.only(left: 9.0, bottom: 2),
+          child: duration.inMilliseconds>=millisecondsInAnHour?
+             ///Display format for when player is at least an hour of duration
+             Text(duration.toHHMMSS(), style: const TextStyle(color: Colors.black, fontSize: 9),):
 
-
-            ),
-            //..............
-            Padding(
-              padding: const EdgeInsets.only(right: 0.0),
-              child: Container(
-                child: GestureDetector(
-                  onTap: (){},
-                  child: const Icon(
-                    Icons.edit_outlined,
-                    color: Colors.black,
-
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 5.0,),
-            Padding(
-              padding: const EdgeInsets.only(right: 0.0),
-              child: Container(
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Icon(
-                    Icons.delete_sweep_outlined,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 5.0,),
-            Padding(
-              padding: const EdgeInsets.only(right:1,),
-              child: Container(
-                child: GestureDetector(
-                  onTap: () {
-
-                  },
-                  child: Icon(
-                    Icons.share,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ),
-            Stack(
-              children: <Widget>[
-                Positioned(
-                  child: Image.asset(
-                    'assets/images/img_notiblack.png',
-                    height: 20,
-                    width: 24,
-                    color: Colors.black,
-                  ),
-                ),
-                const Positioned(
-                  bottom: 19,
-                  right: 4,
-                  child: CircleAvatar(
-                    radius: 9,
-                    backgroundColor: Color(0xff3D79FD),
-                    foregroundColor: Colors.white,
-                  ), //CircularAvatar
-                ),
-              ],
-            ),
-            SizedBox(width: 5.0,),
-            //...............
-            // if (widget.isSender) const SizedBox(width: 10),
-          ],
-        ),
-      ),
-    )
-        : const SizedBox.shrink();
+             ///Display format for when player is less than  an hour
+             Text(duration.toHHMMSS().substring(3, 8), style: const TextStyle(color: Colors.black, fontSize: 10),),
+        )
+      ],
+    );
   }
 }
-
-
-
-// class WaveformButton extends StatefulWidget {
-//   const WaveformButton({Key? key}) : super(key: key);
-//
-//   @override
-//   State<WaveformButton> createState() => _WaveformButtonState();
-// }
-//
-//
-// class _WaveformButtonState extends State<WaveformButton> {
-//   late final RecorderController recorderController;
-//
-//   void _initialiseController() {
-//     recorderController = RecorderController()
-//       ..androidEncoder = AndroidEncoder.aac
-//       ..androidOutputFormat = AndroidOutputFormat.mpeg4
-//       ..iosEncoder = IosEncoder.kAudioFormatMPEG4AAC
-//       ..sampleRate = 16000;
-//   }
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _initialiseController();
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     late final PlayerController playerController;
-//     return Container(
-//       margin: const EdgeInsets.all(5.0),
-//       padding: const EdgeInsets.all(3.0),
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.circular(40.0),
-//         color: const Color(0xffF3F7FF),
-//         border: Border.all(color: Colors.black),
-//       ),
-//       child: Row(
-//         children: <Widget>[
-//            Expanded(
-//             flex: 16,
-//             child: Padding(
-//               padding: const EdgeInsets.all(2.0),
-//               child: CircleAvatar(
-//                 maxRadius: 15.0,
-//                 backgroundColor: Colors.black,
-//                 child: IconButton(
-//                     color: Colors.white,
-//                     iconSize: 15,
-//                     icon: const Icon(
-//                         Icons.play_arrow,
-//                       color:  Color(0xff3D79FD),
-//                     ),
-//                     onPressed: () {
-//                       // do something
-//                     },
-//                 ),
-//               ),
-//             ),
-//             ),
-//            Expanded(
-//             flex: 85,
-//             child: AudioWaveforms(
-//               enableGesture: true,
-//               size: Size(MediaQuery.of(context).size.width, 20.0),
-//               recorderController: recorderController,
-//               waveStyle: const WaveStyle(
-//                 waveColor: Colors.black,
-//                 middleLineColor: Colors.black,
-//                 showDurationLabel: true,
-//                 extendWaveform: true,
-//                 showMiddleLine: true,
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-

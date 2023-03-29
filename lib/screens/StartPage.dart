@@ -1,5 +1,8 @@
+
+
 import 'package:flutter/material.dart';
-import 'package:mboathoscope/CustomButton.dart';
+import 'package:mboathoscope/buttons/CustomButton.dart';
+
 
 class StartPage extends StatelessWidget {
   const StartPage({Key? key}) : super(key: key);
