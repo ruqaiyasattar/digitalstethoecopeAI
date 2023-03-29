@@ -28,7 +28,7 @@ class RolePage extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.only(left: 23, right: 23),
             child: Text(
-              'Please select what your role is',
+              'Please select your role',
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -37,17 +37,17 @@ class RolePage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 55, right: 38, left: 38),
+            padding: const EdgeInsets.only(top: 35, right: 0, left: 19.0),
             child: Row(
               children: const [
                  CustomButton(
                   txt: 'Transmitter',
                 ),
                  SizedBox(
-                  width: 60,
+                  width: 5,
                 ),
                  CustomButton(
-                  txt: 'Receiver',
+                  txt: ' Receiver  ',
                 )
               ],
             ),
@@ -56,22 +56,36 @@ class RolePage extends StatelessWidget {
             height: 20,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 300, top: 30),
+            padding: const EdgeInsets.only(left: 0, top: 40),
             child: GestureDetector(
               onTap: (){
                 Navigator.pushNamed(context,'/homepage');
               },
-              child: RichText(
-                text: const TextSpan(
-                  children: [
-                    TextSpan(
-                      text: "Next ",
-                      style: TextStyle(color: Colors.black)
-                    ),
-                    WidgetSpan(
-                      child: Icon(Icons.arrow_forward_ios, size: 14),
-                    ),
-                  ],
+              child: Container(
+                width: 120,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                decoration: BoxDecoration(
+                  // color: Colors.redAccent,
+                  gradient: LinearGradient(
+                    colors: [Color(0xffC5D7FE),Colors.blueAccent],
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: RichText(
+                  text: const TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "Next ",
+                        style: TextStyle(color: Colors.black,fontSize: 20)
+                      ),
+                      WidgetSpan(
+                        child: Icon(Icons.arrow_forward_ios, size: 20),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
