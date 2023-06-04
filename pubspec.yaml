@@ -35,6 +35,7 @@ dependencies:
   simple_ripple_animation: ^0.0.3
   fluttertoast: ^8.0.9
   permission_handler: ^10.2.0
+  provider: ^6.0.5
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -86,6 +87,7 @@ flutter:
     - assets/images/img_role.png
     - assets/images/img_round.png
     - assets/images/img_setting.png
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

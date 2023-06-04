@@ -20,12 +20,11 @@ class StorageManagement {
   static String createRecordAudioPath(
 
       {required String dirPath, required String fileName}) {
-    print("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+    
     String path="$dirPath${fileName.substring(0, min(fileName.length, 100))}_${DateTime.now().millisecondsSinceEpoch.toString()}.aac";
-    print("lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll$path");
-    print(path);
+    
     return path;
-    print("lllllllllllllllllllllllllllllllllllllllllllll");
+    
     // """$dirPath${fileName.substring(0, min(fileName.length, 100))}_${DateTime.fromMillisecondsSinceEpoch(1000)}.aac""";
   }
 
