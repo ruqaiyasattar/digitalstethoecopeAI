@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:mboathoscope/screens/HomePage.dart';
 import 'package:mboathoscope/screens/RolePage.dart';
 import 'package:mboathoscope/screens/StartPage.dart';
-
 
 
 void main() {
@@ -17,19 +15,19 @@ class EntryRoot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        // title: 'Flutter Demo',
-        theme: ThemeData(
-            primarySwatch: Colors.blue
-        ),
-        home: const StartPage(),
-        debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        routes: {
-          '': (context) => const StartPage(),
-          '/rolepage': (context) => const RolePage(),
-          '/homepage': (context) => const HomePage(),
-        },
-      );
+          // title: 'Flutter Demo',
+          theme: ThemeData(
+              primarySwatch: Colors.blue
+          ),
+          home: const StartPage(),
+          debugShowCheckedModeBanner: false,
+          initialRoute: '/',
+          routes: {
+            '': (context) => const StartPage(),
+            '/rolepage': (context) => const RolePage(),
+            '/homepage': (context) => const HomePage(),
+          },
+    );
   }
 }
 
